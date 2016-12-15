@@ -19,11 +19,18 @@
 <section id="auth-button"></section>
 <section id="view-selector"></section>
 
-<div id="active-users-container"></div>
-<div id="chart-timeline"></div>
-<div id="main-chart-container"></div>
-<div id="breakdown-chart-container"></div>
 
+<div id="active-users-container" class="widget-container"></div>
+
+<section>
+<div id="session-duration-container" class="widget-container one-column"></div>
+<div id="map-container" class="widget-container two-column"></div>
+<div id="time-on-page-container" class="widget-container"></div>
+
+<div id="chart-timeline" class="widget-container two-column"></div>
+<div id="main-chart-container" class="widget-container one-column"></div>
+<div id="breakdown-chart-container" class="widget-container two-column"></div>
+</section>
 <!-- Step 2: Load the library. -->
 
 <script>
@@ -58,6 +65,72 @@ gapi.analytics.ready(function() {
     pollingInterval: 5
   });
 
+
+  var sessionDuration = new gapi.analytics.googleCharts.DataChart({
+    reportType: 'ga',
+    query: {
+      'dimensions': 'ga:sessionDurationBucket',
+      'metrics': 'ga:sessions',
+      'start-date': '30daysAgo',
+      'end-date': 'yesterday',
+    },
+    chart: {
+      type: 'COLUMN',
+      title: 'Frequency Distribution of Usage',
+      fontSize: 12,
+      container: 'session-duration-container',
+      options : {
+        //height: "300",
+        //width: "450"
+      }
+    }
+  });
+
+  var map = new gapi.analytics.googleCharts.DataChart({
+    reportType: 'ga',
+    query: {
+      'dimensions': 'ga:country',
+      'metrics': 'ga:sessions',
+      'start-date': '30daysAgo',
+      'end-date': 'yesterday',
+    },
+    chart: {
+      type: 'GEO',
+      container: 'map-container',
+      options : {
+        colorAxis: {colors: ['#4fb0df', '#0e4f8b']},
+        displayMode: "text, regions",
+        height: "500",
+        width: "750",
+        legend: {textStyle: {color: 'blue', fontSize: 16}}
+        //displayMode: "markers"
+      }
+    }
+  });
+
+  var timeOnPage = new gapi.analytics.googleCharts.DataChart({
+    reportType: 'ga',
+    query: {
+      'dimensions': 'ga:pagePath',
+      'metrics': 'ga:timeOnPage, ga:pageviews',
+      'start-date': '30daysAgo',
+      'end-date': 'yesterday',
+      'sort': '-ga:timeOnPage',
+      'max-results': '10'
+    },
+    chart: {
+      type: 'TABLE',
+      title: 'Top 10 Pages by Time on Page',
+      container: 'time-on-page-container',
+      options : {
+        //height: "300",
+        //width: "450"
+      }
+    }
+  });
+
+
+
   // Step 5: Create the charts.
 
   var timeline = new gapi.analytics.googleCharts.DataChart({
@@ -90,7 +163,7 @@ gapi.analytics.ready(function() {
       type: 'TABLE',
       container: 'main-chart-container',
       options: {
-        width: '600'
+        //width: '600'
       }
     }
   });
@@ -111,7 +184,7 @@ gapi.analytics.ready(function() {
       type: 'LINE',
       container: 'breakdown-chart-container',
       options: {
-        width: '600'
+        //width: '600'
       }
     }
   });
@@ -123,7 +196,12 @@ gapi.analytics.ready(function() {
   });
 
   var initOptions = { query: { ids: "ga:93404402" } };
-  activeUsers.set(initOptions).execute();
+  //activeUsers.set(initOptions).execute();
+  sessionDuration.set(initOptions).execute();
+  map.set(initOptions).execute();
+  timeOnPage.set(initOptions).execute();
+
+  
   timeline.set(initOptions).execute();
   mainChart.set(initOptions).execute();
   breakdownChart.set(initOptions).execute();
