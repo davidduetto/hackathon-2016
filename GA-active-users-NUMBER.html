@@ -1,0 +1,28 @@
+<script src="ga-dev-tools-master/build/javascript/embed-api/components/active-users.js"></script>
+<div id="active-users-container"></div>
+
+<script>
+  var activeUsers = new gapi.analytics.ext.ActiveUsers({
+    container: 'active-users-container',
+    pollingInterval: 5
+  });
+
+  activeUsers.once('success', function() {
+    var element = this.container.firstChild;
+    var timeout;
+
+    this.on('change', function(data) {
+      var element = this.container.firstChild;
+      var animationClass = data.delta > 0 ? 'is-increasing' : 'is-decreasing';
+      element.className += (' ' + animationClass);
+
+      clearTimeout(timeout);
+      timeout = setTimeout(function() {
+        element.className =
+            element.className.replace(/ is-(increasing|decreasing)/g, '');
+      }, 3000);
+    });
+  });
+
+  activeUsers.set({ query: { ids: "ga:93404402" } }).execute();
+</script>

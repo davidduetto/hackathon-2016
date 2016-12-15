@@ -1,0 +1,22 @@
+<script>
+  (function(w,d,s,g,js,fjs){
+    g=w.gapi||(w.gapi={});g.analytics={q:[],ready:function(cb){this.q.push(cb)}};
+    js=d.createElement(s);fjs=d.getElementsByTagName(s)[0];
+    js.src='https://apis.google.com/js/platform.js';
+    fjs.parentNode.insertBefore(js,fjs);js.onload=function(){g.load('analytics')};
+  }(window,document,'script'));
+  
+  // Step 3: Authorize the user.
+  gapi.analytics.ready(function() {
+    gapi.analytics.auth.authorize({
+      container: 'auth-button',
+      clientid: '978584009742-1ur1q94n1q51v72v8fnkf23g41rpe28g.apps.googleusercontent.com',
+    });
+  });
+
+  // Set some global Chart.js defaults.
+  Chart.defaults.global.animationSteps = 60;
+  Chart.defaults.global.animationEasing = 'easeInOutQuart';
+  Chart.defaults.global.responsive = true;
+  Chart.defaults.global.maintainAspectRatio = false;
+</script>
