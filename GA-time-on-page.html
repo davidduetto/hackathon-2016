@@ -1,0 +1,28 @@
+<div class="Chartjs">
+  <h3>Top 10 Pages (by Time on Page)</h3>
+  <div id="GA-time-on-page-container"></div>
+</div>
+<script defer>
+  var timeOnPage = new gapi.analytics.googleCharts.DataChart({
+    reportType: 'ga',
+    query: {
+      'dimensions': 'ga:pagePath',
+      'metrics': 'ga:timeOnPage, ga:pageviews',
+      'start-date': '30daysAgo',
+      'end-date': 'yesterday',
+      'sort': '-ga:timeOnPage',
+      'max-results': '10'
+    },
+    chart: {
+      type: 'TABLE',
+      title: 'Top 10 Pages by Time on Page',
+      container: 'GA-time-on-page-container',
+      options : {
+        //height: "300",
+        //width: "450"
+      }
+    }
+  });
+  timeOnPage.set({ query: { ids: "ga:93404402" } }).execute();
+  
+</script>

@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Usage - CS</title>
+	<link rel="import" href="basic-library.html">
+</head>
+
+<body>
+<!-- Navigation Bar -->
+<div id="menu">
+  <ul>
+    <li><a href="index.html">CS</a></li>
+    <li><a class="active" href="usage-cs.html">Users</a></li>
+    <li><a href="dev.html">Dev</a></li>
+    <section class="auth" id="auth-button"></section>
+  </ul>
+</div>
+<div class = chart-container>
+  <link rel="import" href="GA-setup-auth.html">
+
+  <section>
+    <div id="GA-time-on-page">OOO</div>
+  	<div id="GA-time-on-page-PIE">AAA</div>
+  </section>
+</div>
+
+<script>
+gapi.analytics.ready(function() {
+  $("#GA-time-on-page").load("GA-time-on-page.html");
+  $("#GA-time-on-page-PIE").load("GA-time-on-page-PIE.html");
+});
+</script>
+</body>
+</html>
