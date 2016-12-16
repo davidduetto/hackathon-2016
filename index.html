@@ -2,42 +2,42 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <title>Duetto Demo</title>
+  <title>Users</title>
   <link rel="import" href="basic-library.html">
+  <link rel='shortcut icon' href='favicon.ico' type='image/x-icon'/ >
 </head>
 
 <body>
 <!-- Navigation Bar -->
 <div id="menu">
   <ul>
-    <li><a class="active" href="index.html">CS</a></li>
-    <li><a href="usage-cs.html">Users</a></li>
+    <li><a class="active" href="index.html">Users</a></li>
+    <li><a href="cs.html">CS</a></li>
     <li><a href="dev.html">Dev</a></li>
     <section class="auth" id="auth-button"></section>
   </ul>
 </div>
-<div class = chart-container>
+<div class="chart-container">
   <link rel="import" href="GA-setup-auth.html">
 
   <section>
-    <div id="GA-active-users-NUMBER"></div>
+    <div id="GA-active-users-NUMBER" class="widget-container" style="width: 100%;">OOO</div>
     <div class="charts">
-      <div id="GA-session-week-over-week-LINE"></div>
-      <div id="GA-user-year-over-year-BAR"></div>
-      <div id="GA-top-browsers-PIE"></div>
-      <div id="Sumo-all-requests-LINE"></div>
+      <div id="GA-session-week-over-week-LINE" class="widget-container" style="width: 49%; margin-right: 2%">AAA</div>
+      <div id="GA-user-year-over-year-BAR" class="widget-container" style="width: 48%;">BBB</div>
+      <div id="GA-time-on-page" class="widget-container" style="width: 1000px; margin-right: 2%">OOO</div>
+      <div id="GA-time-on-page-PIE" class="widget-container" style="width: 37%; height: 437.8px; vertical-align: middle;">AAA</div>
     </div>
   </section>
 </div>
 
 <script>
 gapi.analytics.ready(function() {
-
   $("#GA-active-users-NUMBER").load("GA-active-users-NUMBER.html");
   $("#GA-session-week-over-week-LINE").load("GA-session-week-over-week-LINE.html");
   $("#GA-user-year-over-year-BAR").load("GA-user-year-over-year-BAR.html");
-  $("#GA-top-browsers-PIE").load("GA-top-browsers-PIE.html");
-  $("#Sumo-all-requests-LINE").load("Sumo-all-requests-LINE.html");
+  $("#GA-time-on-page").load("GA-time-on-page.html");
+  $("#GA-time-on-page-PIE").load("GA-time-on-page-PIE.html");
 });
 </script>
 </body>
