@@ -1,0 +1,125 @@
+<div class="Chartjs">
+  <h3>User requests over time</h3>
+  <figure class="Chartjs-figure" id="chart-user-request-container">loading</figure>
+  <ol class="Chartjs-legend" id="legend-user-request-container"></ol>
+</div>
+<script defer>
+
+  /**
+   * Create a new canvas inside the specified element. Set it to be the width
+   * and height of its container.
+   * @param {string} id The id attribute of the element to host the canvas.
+   * @return {RenderingContext} The 2D canvas context.
+   */
+  function makeCanvas(id) {
+    var container = document.getElementById(id);
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+
+    container.innerHTML = '';
+    canvas.width = container.offsetWidth;
+    canvas.height = container.offsetHeight;
+    container.appendChild(canvas);
+
+    return ctx;
+  }
+
+
+  /**
+   * Create a visual legend inside the specified element based off of a
+   * Chart.js dataset.
+   * @param {string} id The id attribute of the element to host the legend.
+   * @param {Array.<Object>} items A list of labels and colors for the legend.
+   */
+  function generateLegend(id, items) {
+    var legend = document.getElementById(id);
+    legend.innerHTML = items.map(function(item) {
+      var color = item.color || item.fillColor;
+      var label = item.label;
+      return '<li><i style="background:' + color + '"></i>' +
+          escapeHtml(label) + '</li>';
+    }).join('');
+  }
+
+  /**
+   * Escapes a potentially unsafe HTML string.
+   * @param {string} str An string that may contain HTML entities.
+   * @return {string} The HTML-escaped string.
+   */
+  function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  }
+
+  function renderUserRequestChart(data) {
+    var counts = data.histogramBuckets.map(function(row) { 
+      return row["count"]; 
+    });
+    var lengths = data.histogramBuckets.map(function(row) { 
+      return row["length"]; 
+    });
+    var timestamps = data.histogramBuckets.map(function(row) { 
+      return row["startTimestamp"]; 
+    });
+
+    var labels = timestamps.map(function(timestamp) {
+      return moment(timestamp).format('YYYY-MM-DD HH:mm:ss');
+    });
+
+    var data = {
+      labels : labels,
+      datasets : [
+        {
+          label: 'Counts',
+          fillColor : 'rgba(220,220,220,0.5)',
+          strokeColor : 'rgba(220,220,220,1)',
+          pointColor : 'rgba(220,220,220,1)',
+          pointStrokeColor : '#fff',
+          data : counts
+        }
+      ]
+    };
+
+    new Chart(makeCanvas('chart-user-request-container')).Line(data);
+    generateLegend('legend-user-request-container', data.datasets);
+  }
+  
+  function poll_sumo_result(poll_link, index) {
+    $.ajax({
+      type: "POST",
+      url : "sumo_php/poll_job.php", 
+      dataType: "json",
+      data: {
+        "link" : poll_link
+      },
+      success: function(poll_response, poll_status) {
+        if (poll_response.state == "DONE GATHERING RESULTS") {
+          renderUserRequestChart(poll_response);
+        } else { 
+          $("#chart-user-request-container").text("loading: " + index)
+          setTimeout(poll_sumo_result, 5000, poll_link, index + 1);
+        }
+      }
+    });
+  }
+
+  var now = moment();
+  var fromDate = moment(now).subtract(12, 'hour').format("YYYY-MM-DDTHH:mm:ss");
+  var toDate = moment(now).format("YYYY-MM-DDTHH:mm:ss")
+
+  $.ajax({
+    type: "POST",
+    url : "sumo_php/init_job.php", 
+    dataType: "json",
+    data: {
+      "query" : "_sourceCategory=apps-prod AND \"r;\"* | parse \"path=*;\" as path, \"company=*;\" as company, \"hotel=*;\" as hotel, \"duration=*\" as duration | where path = \"/forecast/edit\" | timeslice by 5m | count by _timeslice",
+      "from" : fromDate,
+      "to" : toDate,
+      "timeZone" : "PST"
+    },
+    success: function(obj, status) {
+      poll_sumo_result(obj.link.href, 0);      
+    }
+  });
+</script>
