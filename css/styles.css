@@ -53,6 +53,7 @@ li a {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    width: 100px;
 }
 
 li a:hover:not(.active) {
@@ -69,8 +70,12 @@ li a:hover:not(.active) {
 	line-height: 46px;
 }
 
-.GA-sesion-week-over-week-LINE,
-.GA-user-year-over-year-BAR,
-.GA-top-browsers-PIE {
-	display: flex;
+#GA-sesion-week-over-week-LINE,
+#GA-user-year-over-year-BAR,
+#GA-top-browsers-PIE {
+	margin: 40px 0;
+}
+
+.charts {
+	padding: 0 22px;
 }
