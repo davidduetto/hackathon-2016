@@ -1,8 +1,10 @@
-<div class="Chartjs" style="width: 1000px;">
+<div class="Chartjs">
   <h3>Top 10 Pages (by Time on Page)</h3>
   <div id="GA-time-on-page-container"></div>
 </div>
 <script defer>
+  var offsetWidth = parseInt($("#GA-time-on-page-container").outerWidth(), 10);
+
   var timeOnPage = new gapi.analytics.googleCharts.DataChart({
     reportType: 'ga',
     query: {
@@ -18,8 +20,8 @@
       title: 'Top 10 Pages by Time on Page',
       container: 'GA-time-on-page-container',
       options : {
-        height: "390",
-        width: "1000"
+        height: 390,
+        width: offsetWidth
       }
     }
   });
