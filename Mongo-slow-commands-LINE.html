@@ -1,5 +1,5 @@
 <div class="Chartjs">
-  <h3>Mongo slow commands over time</h3>
+  <h3>Mongo Slow Commands over Time</h3>
   <figure class="Chartjs-figure" id="chart-mongo-slow-commands-container">loading</figure>
   <ol class="Chartjs-legend" id="legend-mongo-slow-commands-container"></ol>
 </div>
@@ -83,6 +83,9 @@
 
     new Chart(makeCanvas('chart-mongo-slow-commands-container')).Line(data);
     generateLegend('legend-mongo-slow-commands-container', data.datasets);
+    var line = document.createElement("div");
+    line.innerHTML = sum > 999 ? (sum/1000).toFixed(1) + 'k' : sum;
+    document.getElementById('chart-mongo-slow-commands-container').appendChild(line);
   }
   
   function poll_sumo_result(poll_link, index) {
