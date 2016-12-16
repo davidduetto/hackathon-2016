@@ -20,8 +20,9 @@
   <link rel="import" href="GA-setup-auth.html">
 
   <section>
-    <div class="charts">
+    <div class="charts dev-charts">
       <div id="Mongo-slow-commands-LINE"></div>
+      <div id="Mongo-messages-by-severity-LINE"></div>
     </div>
   </section>
 </div>
@@ -30,6 +31,7 @@
 
 gapi.analytics.ready(function() {
   $("#Mongo-slow-commands-LINE").load("Mongo-slow-commands-LINE.html");
+  $("#Mongo-messages-by-severity-LINE").load("Mongo-message-by-severity-LINE.html");
 });
 
 </script>

@@ -69,3 +69,7 @@ li a:hover:not(.active) {
 .ga-user {
     display: flex;
 }
+
+.dev-charts {
+    background-color: white;
+}

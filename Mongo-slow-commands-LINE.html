@@ -84,6 +84,7 @@
     new Chart(makeCanvas('chart-mongo-slow-commands-container')).Line(data);
     generateLegend('legend-mongo-slow-commands-container', data.datasets);
     var line = document.createElement("div");
+    line.classList.add("total-mongo-commands");
     line.innerHTML = sum > 999 ? (sum/1000).toFixed(1) + 'k' : sum;
     document.getElementById('chart-mongo-slow-commands-container').appendChild(line);
   }
@@ -100,7 +101,7 @@
         if (poll_response.state == "DONE GATHERING RESULTS") {
           renderUserRequestChart(poll_response);
         } else { 
-          $("#chart-mongo-slow-commands-container").text("loading: " + index)
+          $("#chart-mongo-slow-commands-container").text("loading...")
           setTimeout(poll_sumo_result, 5000, poll_link, index + 1);
         }
       }
