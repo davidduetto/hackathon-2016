@@ -1,5 +1,5 @@
 <div class="Chartjs">
-  <h3>User requests over time</h3>
+  <h3>My Forecast user requests over time</h3>
   <figure class="Chartjs-figure" id="chart-user-request-container">loading</figure>
   <ol class="Chartjs-legend" id="legend-user-request-container"></ol>
 </div>
@@ -64,7 +64,7 @@
     });
 
     var labels = timestamps.map(function(timestamp) {
-      return moment(timestamp).format('YYYY-MM-DD HH:mm:ss');
+      return moment(timestamp).format('ddd HH:mm');
     });
 
     var data = {
