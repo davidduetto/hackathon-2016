@@ -8,6 +8,7 @@ body {
 	font-size:15px; 
 	color:#2c2c2c; 
   background-color: #eaedee;
+  margin-bottom: 40px;
 }
 
 .chart-container {
@@ -45,6 +46,10 @@ li a {
     padding: 14px 16px;
     text-decoration: none;
     width: 100px;
+}
+
+.menu li a {
+  cursor : pointer;
 }
 
 li a:hover:not(.active) {
