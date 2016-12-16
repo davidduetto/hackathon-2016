@@ -73,3 +73,27 @@ li a:hover:not(.active) {
 .dev-charts {
     background-color: white;
 }
+
+#Mongo-slow-commands-LINE,
+#Mongo-message-by-severity-LINE,
+#Mongo-slow-crud-LINE,
+#Mongo-crud-LINE {
+	margin: 40px 0;
+}
+
+.Chartjs {
+	margin: 10px 20px;
+}
+
+#Mongo-slow-commands-LINE h3{
+	padding-top: 10px;
+}
+
+.status {
+	margin: 30px 0 0 0;
+	font-weight: bold;
+}
+
+.mongo-status {
+	color: green;
+}
