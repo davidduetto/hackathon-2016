@@ -10,7 +10,7 @@ body {
 }
 .widget-container {
 	display: inline-block;
-	border: 1px solid red;
+	float: left;
 }
 
 .one-column {
@@ -76,6 +76,15 @@ li a:hover:not(.active) {
 	margin: 40px 0;
 }
 
+#GA-time-on-page,
+#GA-time-on-page-PIE {
+	margin: 22px 22px 0 0;
+}
+
 .charts {
 	padding: 0 22px;
+}
+
+.ga-user {
+    display: flex;
 }

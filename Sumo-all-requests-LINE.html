@@ -1,7 +1,7 @@
 <div class="Chartjs">
-  <h3>My Forecast user requests over time</h3>
-  <figure class="Chartjs-figure" id="chart-user-request-container">loading</figure>
-  <ol class="Chartjs-legend" id="legend-user-request-container"></ol>
+  <h3>All user requests over time</h3>
+  <figure class="Chartjs-figure" id="chart-all-request-container">loading</figure>
+  <ol class="Chartjs-legend" id="legend-all-request-container"></ol>
 </div>
 <script defer>
 
@@ -81,8 +81,8 @@
       ]
     };
 
-    new Chart(makeCanvas('chart-user-request-container')).Line(data);
-    generateLegend('legend-user-request-container', data.datasets);
+    new Chart(makeCanvas('chart-all-request-container')).Line(data);
+    generateLegend('legend-all-request-container', data.datasets);
   }
   
   function poll_sumo_result(poll_link, index) {
@@ -97,7 +97,7 @@
         if (poll_response.state == "DONE GATHERING RESULTS") {
           renderUserRequestChart(poll_response);
         } else { 
-          $("#chart-user-request-container").text("loading: " + index)
+          $("#chart-all-request-container").text("loading: " + index)
           setTimeout(poll_sumo_result, 5000, poll_link, index + 1);
         }
       }
@@ -113,7 +113,7 @@
     url : "sumo_php/init_job.php", 
     dataType: "json",
     data: {
-      "query" : "_sourceCategory=apps-prod AND \"r;\"* | parse \"path=*;\" as path, \"company=*;\" as company, \"hotel=*;\" as hotel, \"duration=*\" as duration | where path = \"/forecast/edit\" | timeslice by 5m | count by _timeslice",
+      "query" : "_sourceCategory=apps-prod AND \"r;\"* | timeslice by 5m | count by _timeslice",
       "from" : fromDate,
       "to" : toDate,
       "timeZone" : "PST"
