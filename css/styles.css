@@ -70,14 +70,11 @@ li a:hover:not(.active) {
     display: flex;
 }
 
-.dev-charts {
-    background-color: white;
-}
-
 #Mongo-slow-commands-LINE,
-#Mongo-message-by-severity-LINE,
+#Mongo-messages-by-severity-LINE,
 #Mongo-slow-crud-LINE,
 #Mongo-crud-LINE {
+  background-color: white;
 	margin: 40px 0;
 }
 
@@ -85,7 +82,7 @@ li a:hover:not(.active) {
 	margin: 10px 20px;
 }
 
-#Mongo-slow-commands-LINE h3{
+.dev-charts h3{
 	padding-top: 10px;
 }
 
