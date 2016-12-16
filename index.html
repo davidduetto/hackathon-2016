@@ -25,14 +25,24 @@
     <div class="charts">
       <div id="GA-session-week-over-week-LINE" class="widget-container" style="width: 49%; margin-right: 2%">AAA</div>
       <div id="GA-user-year-over-year-BAR" class="widget-container" style="width: 48%;">BBB</div>
-      <div id="GA-time-on-page" class="widget-container" style="width: 67%; margin-right: 2%">OOO</div>
-      <div id="GA-time-on-page-PIE" class="widget-container" style="width: 30%; height: 437.81px">AAA</div>
+      <div id="GA-time-on-page" class="widget-container" style="width: 62%; margin-right: 2%">OOO</div>
+      <div id="GA-time-on-page-PIE" class="widget-container" style="width: 35%; height: 437.81px">AAA</div>
 
-      <div id="GA-session-MAP" class="widget-container" style="width: 67%; margin-right: 2%;">CCC</div>
-
+      <div id="GA-session-MAP" class="widget-container" style="width: 62%; margin-right: 2%;">CCC</div>
+      <div id="GA-session-country-TABLE" class="widget-container" style="width: 35%;">
+        <div class="Chartjs">
+  <div id="GA-session-country-table-container"></div>
+</div>
+      </div>
     </div>
   </section>
 </div>
+
+
+<script defer>
+  
+  
+</script>
 
 <script>
 gapi.analytics.ready(function() {
@@ -42,6 +52,28 @@ gapi.analytics.ready(function() {
   $("#GA-time-on-page").load("GA-time-on-page.html");
   $("#GA-time-on-page-PIE").load("GA-time-on-page-PIE.html");
   $("#GA-session-MAP").load("GA-session-MAP.html");
+
+  var offsetWidth = parseInt($("#GA-session-country-table-container").outerWidth(), 10);
+
+  var sessionCountry = new gapi.analytics.googleCharts.DataChart({
+    reportType: 'ga',
+    query: {
+      'dimensions': 'ga:country',
+      'metrics': 'ga:sessions',
+      'sort' : '-ga:sessions',
+      'start-date': '30daysAgo',
+      'end-date': 'yesterday',
+    },
+    chart: {
+      type: 'TABLE',
+      container: 'GA-session-country-table-container',
+      options : {
+        height: 500,
+        width: offsetWidth
+      }
+    }
+  });
+  sessionCountry.set({ query: { ids: "ga:93404402" } }).execute();
 });
 </script>
 </body>
