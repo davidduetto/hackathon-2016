@@ -68,3 +68,9 @@ li a:hover:not(.active) {
 	float: right;
 	line-height: 46px;
 }
+
+.GA-sesion-week-over-week-LINE,
+.GA-user-year-over-year-BAR,
+.GA-top-browsers-PIE {
+	display: flex;
+}
