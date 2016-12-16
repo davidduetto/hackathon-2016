@@ -20,15 +20,40 @@
 <div class="chart-container">
   <link rel="import" href="GA-setup-auth.html">
   <section>
+    <div id="GA-active-users-NUMBER">loading...</div>
     <div class="charts">
-      <div id="Sumo-user-requests-LINE"></div>
+      
+      <div id="Sumo-out-integration-requests-BAR" class="widget-container" style="width: 66%; margin-right: 1.5%; height: 413px;">loading...</div>
+      <div id="Sumo-out-integration-requests-partner-PIE" class="widget-container" style="width: 32%;">loading...</div>
+      <div id="Sumo-in-integration-requests-BAR" class="widget-container" style="width: 66%; margin-right: 1.5%; height: 368px;">loading...</div>
+      <div id="Sumo-in-integration-requests-partner-PIE" class="widget-container" style="width: 32%;">loading...</div>
+
+      <div id="integration-progress-chart-BAR" class="widget-container" style="width: 66%; margin-right: 1.5%; height: 400px;">loading...</div>
+      <div id="integration-gack-feed" class="widget-container" style="width: 32%; height: 400px;">
+        <h3>System gack feed</h3>
+        <ol>
+          <div>El Cortez: 97 system gacks</div>
+          <br/>
+          <div>Red Lion Hotel Atlanta: 33 system gacks</div>
+          <br/>
+          <div>NH Amsterdam Zuid: 25 system gacks</div>
+          <br/>
+          <div>Great Wolf Niagra: 52 system gacks</div>
+          <br/>
+          <div>Hotel ABC: 100 system gacks</div>
+        </ol>
+      </div>
     </div>
   </section>
 </div>
 
 <script>
 gapi.analytics.ready(function() {
-  $("#Sumo-user-requests-LINE").load("Sumo-user-requests-LINE.html");
+  $("#GA-active-users-NUMBER").load("GA-active-users-NUMBER.html");
+  $("#Sumo-out-integration-requests-BAR").load("Sumo-out-integration-requests-BAR.html");
+  $("#Sumo-out-integration-requests-partner-PIE").load("Sumo-integration-out-partner-PIE.html");
+  $("#Sumo-in-integration-requests-BAR").load("Sumo-in-integration-requests-BAR.html");
+  $("#Sumo-in-integration-requests-partner-PIE").load("Sumo-integration-in-partner-PIE.html");
 });
 </script>
 </body>

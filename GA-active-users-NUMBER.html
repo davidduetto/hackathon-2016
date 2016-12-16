@@ -1,6 +1,6 @@
 <script src="ga-dev-tools-master/build/javascript/embed-api/components/active-users.js"></script>
 <div id="active-users-container" style="margin-top: 20px; margin-right: 30px; height: 40px; display: inline-block;"></div>
-<div id="unicorn-gif" style="width: 48px; height: 40px; background-image: url(img/hi.gif); background-size: contain; display: inline-block; vertical-align: middle;"></div>
+<div id="unicorn-gif" style="width: 48px; height: 40px; background-image: url(img/low.gif); background-size: contain; display: inline-block; vertical-align: middle;"></div>
 
 <script>
   var activeUsers = new gapi.analytics.ext.ActiveUsers({
@@ -8,11 +8,18 @@
     pollingInterval: 5
   });
 
-  activeUsers.once('success', function() {
+  activeUsers.once('success', function(data) {
     var element = this.container.firstChild;
     var timeout;
 
     this.on('change', function(data) {
+      if (data.activeUsers < 20) {
+        $("#unicorn-gif").css("background-image", "url(img/low.gif)");
+      } else if (data.activeUsers >= 20 && data.activeUsers < 30) {
+        $("#unicorn-gif").css("background-image", "url(img/med.gif)");
+      } else {
+        $("#unicorn-gif").css("background-image", "url(img/hi.gif)");
+      }
       var element = this.container.firstChild;
       var animationClass = data.delta > 0 ? 'is-increasing' : 'is-decreasing';
       element.className += (' ' + animationClass);

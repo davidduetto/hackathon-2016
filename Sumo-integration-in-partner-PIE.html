@@ -1,0 +1,90 @@
+<div class="Chartjs">
+  <h3>Breakdown by Partner</h3>
+  <figure class="Chartjs-figure" id="chart-in-integration-requests-partner-container">loading</figure>
+  <ol class="Chartjs-legend" id="legend-in-integration-requests-partner-container"></ol>
+</div>
+
+<script>
+  /**
+   * Create a new canvas inside the specified element. Set it to be the width
+   * and height of its container.
+   * @param {string} id The id attribute of the element to host the canvas.
+   * @return {RenderingContext} The 2D canvas context.
+   */
+  function makeCanvas(id) {
+    var container = document.getElementById(id);
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+
+    container.innerHTML = '';
+    canvas.width = container.offsetWidth;
+    canvas.height = container.offsetHeight;
+    container.appendChild(canvas);
+
+    return ctx;
+  }
+
+
+  /**
+   * Create a visual legend inside the specified element based off of a
+   * Chart.js dataset.
+   * @param {string} id The id attribute of the element to host the legend.
+   * @param {Array.<Object>} items A list of labels and colors for the legend.
+   */
+  function generateLegend(id, items) {
+    var legend = document.getElementById(id);
+    legend.innerHTML = items.map(function(item) {
+      var color = item.color || item.fillColor;
+      var label = item.label;
+      return '<li><i style="background:' + color + '"></i>' +
+          escapeHtml(label) + '</li>';
+    }).join('');
+  }
+
+  /**
+   * Escapes a potentially unsafe HTML string.
+   * @param {string} str An string that may contain HTML entities.
+   * @return {string} The HTML-escaped string.
+   */
+  function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  }
+
+  function renderIntegrationInChart(data) {
+    var index = 0;
+    var graphData = [];
+    $.each(data, function(key, value){
+      index++;
+      index = index % 10;
+      graphData.push({ 
+        value: value, 
+        color: colors_dark[index], 
+        label: key
+      })
+    });
+    
+    new Chart(makeCanvas('chart-in-integration-requests-partner-container')).Doughnut(graphData);
+    generateLegend('legend-in-integration-requests-partner-container', graphData);
+  }
+
+  var data = {
+    "visualone":876136,
+    "async":145167,
+    "lms":82865,
+    "hms":56507,
+    "roomkey":33505,
+    "sync":19910,
+    "itesso":16922,
+    "atrio":8858,
+    "sabre":8507,
+    "autoclerk":7913,
+    "protel":2589,
+    "roommaster":2052,
+    "psms":271,
+    "windsurfer":267
+    };
+  
+  renderIntegrationInChart(data);
+</script>
