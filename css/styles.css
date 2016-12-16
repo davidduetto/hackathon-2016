@@ -7,30 +7,22 @@ body {
 	font-family: 'Lato', sans-serif; 
 	font-size:15px; 
 	color:#2c2c2c; 
+  background-color: #eaedee;
+  margin-bottom: 40px;
 }
+
+.chart-container {
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
 .widget-container {
-	display: inline-block;
-	float: left;
-}
-
-.one-column {
-	width: 30%;
-}
-
-.two-column {
-	width: 60%;
-}
-
-.column-left {
-	left: 0%;
-}
-
-.column-middle {
-	left: 35%;
-}
-
-.column-right {
-	left: 70%;
+  margin-top: 30px;
+  vertical-align: middle;
+  display: inline-block;
+  
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.06);
 }
 
 ul {
@@ -56,6 +48,10 @@ li a {
     width: 100px;
 }
 
+.menu li a {
+  cursor : pointer;
+}
+
 li a:hover:not(.active) {
     background-color: #111;
 }
@@ -68,21 +64,6 @@ li a:hover:not(.active) {
 	color: white;
 	float: right;
 	line-height: 46px;
-}
-
-#GA-sesion-week-over-week-LINE,
-#GA-user-year-over-year-BAR,
-#GA-top-browsers-PIE {
-	margin: 40px 0;
-}
-
-#GA-time-on-page,
-#GA-time-on-page-PIE {
-	margin: 22px 22px 0 0;
-}
-
-.charts {
-	padding: 0 22px;
 }
 
 .ga-user {

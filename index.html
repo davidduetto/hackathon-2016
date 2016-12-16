@@ -2,42 +2,60 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <title>Duetto Demo</title>
+  <title>Users</title>
   <link rel="import" href="basic-library.html">
+  <link rel='shortcut icon' href='favicon.ico' type='image/x-icon'/ >
 </head>
 
 <body>
 <!-- Navigation Bar -->
 <div id="menu">
   <ul>
-    <li><a class="active" href="index.html">CS</a></li>
-    <li><a href="usage-cs.html">Users</a></li>
+    <li><a class="active" href="index.html">Users</a></li>
+    <li><a href="cs.html">CS</a></li>
     <li><a href="dev.html">Dev</a></li>
     <section class="auth" id="auth-button"></section>
   </ul>
 </div>
-<div class = chart-container>
+<div class="chart-container">
   <link rel="import" href="GA-setup-auth.html">
 
   <section>
-    <div id="GA-active-users-NUMBER"></div>
+    <div id="GA-active-users-NUMBER">loading...</div>
     <div class="charts">
-      <div id="GA-session-week-over-week-LINE"></div>
-      <div id="GA-user-year-over-year-BAR"></div>
-      <div id="GA-top-browsers-PIE"></div>
-      <div id="Sumo-all-requests-LINE"></div>
+      <div id="GA-session-week-over-week-LINE" class="widget-container" style="width: 49%; margin-right: 1.5%">loading...</div>
+      <div id="GA-user-year-over-year-BAR" class="widget-container" style="width: 49%;">loading...</div>
+      <div id="GA-time-on-page" class="widget-container" style="width: 66%; margin-right: 1.5%">loading...</div>
+      <div id="GA-time-on-page-PIE" class="widget-container" style="width: 32%; height: 437.81px">loading...</div>
+
+      <div id="GA-session-MAP" class="widget-container" style="width: 66%; margin-right: 1.5%;">loading...</div>
+      <div id="GA-session-country-TABLE" class="widget-container" style="width: 32%;">loading...</div>
+
+      <div id="GA-session-duration-BAR" class="widget-container" style="width: 32%; margin-right: 2%; height: 370px">loading...</div>
+      <div id="GA-top-user-PIE" class="widget-container" style="width: 32%; margin-right: 1.5%; height: 370px">loading...</div>
+      <div id="GA-user-age-group-BAR" class="widget-container" style="width: 32%; height: 370px">loading...</div>
     </div>
   </section>
 </div>
 
 <script>
 gapi.analytics.ready(function() {
-
   $("#GA-active-users-NUMBER").load("GA-active-users-NUMBER.html");
   $("#GA-session-week-over-week-LINE").load("GA-session-week-over-week-LINE.html");
   $("#GA-user-year-over-year-BAR").load("GA-user-year-over-year-BAR.html");
-  $("#GA-top-browsers-PIE").load("GA-top-browsers-PIE.html");
-  $("#Sumo-all-requests-LINE").load("Sumo-all-requests-LINE.html");
+  $("#GA-time-on-page").load("GA-time-on-page.html");
+  $("#GA-time-on-page-PIE").load("GA-time-on-page-PIE.html");
+  
+  setTimeout(function() {
+    $("#GA-session-MAP").load("GA-session-MAP.html");
+    $("#GA-session-country-TABLE").load("GA-session-country-TABLE.html");
+  }, 2000);
+  
+  setTimeout(function() {
+    $("#GA-session-duration-BAR").load("GA-session-duration-BAR.html");
+    $("#GA-top-user-PIE").load("GA-top-user-PIE.html");
+    $("#GA-user-age-group-BAR").load("GA-user-age-group-BAR.html");
+  }, 4000);
 });
 </script>
 </body>

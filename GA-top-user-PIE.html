@@ -1,7 +1,9 @@
-<div class="Chartjs" style="margin: auto; margin-top: 50px;">
-  <figure class="Chartjs-figure" id="chart-time-on-page-pie-container"></figure>
-  <ol class="Chartjs-legend" id="legend-time-on-page-pie-container"></ol>
+<div class="Chartjs">
+  <h3>User Gender</h3>
+  <figure class="Chartjs-figure" id="chart-user-gender-pie-container"></figure>
+  <ol class="Chartjs-legend" id="legend-user-gender-pie-container"></ol>
 </div>
+
 <script defer>
     /**
    * Extend the Embed APIs `gapi.analytics.report.Data` component to
@@ -75,12 +77,10 @@
 
     query({
       'ids': ids,
-      'dimensions': 'ga:pagePath',
-      'metrics': 'ga:timeOnPage',
+      'dimensions': 'ga:userGender',
+      'metrics': 'ga:sessions',
       'start-date': '30daysAgo',
-      'end-date': 'yesterday',
-      'sort': '-ga:timeOnPage',
-      'max-results': 10
+      'end-date': 'yesterday'
     })
     .then(function(response) {
 
@@ -95,11 +95,37 @@
 
       //backgrounColor, borderColor, // strokeColor, fillColor, pointColor, pointStrokeColor
 
-      new Chart(makeCanvas('chart-time-on-page-pie-container')).Doughnut(data);
-      generateLegend('legend-time-on-page-pie-container', data);
+      new Chart(makeCanvas('chart-user-gender-pie-container')).Doughnut(data);
+      generateLegend('legend-user-gender-pie-container', data);
     });
   }
   
   renderTimeOnPagePieChart("ga:93404402");
+  
+</script>
+
+
+
+<script defer>
+  var offsetWidth = parseInt($("#GA-top-users-table-container").outerWidth(), 10);
+
+  var sessionCountry = new gapi.analytics.googleCharts.DataChart({
+    reportType: 'ga',
+    query: {
+      'dimensions': 'ga:userGender',
+      'metrics': 'ga:sessions',
+      'start-date': '30daysAgo',
+      'end-date': 'yesterday',
+    },
+    chart: {
+      type: 'PIE',
+      container: 'GA-top-users-table-container',
+      options : {
+        height: 370,
+        width: offsetWidth
+      }
+    }
+  });
+  sessionCountry.set({ query: { ids: "ga:93404402" } }).execute();
   
 </script>

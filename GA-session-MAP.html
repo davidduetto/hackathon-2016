@@ -1,0 +1,28 @@
+<div class="Chartjs">
+  <div id="GA-session-map-container"></div>
+</div>
+<script defer>
+  var map = new gapi.analytics.googleCharts.DataChart({
+    reportType: 'ga',
+    query: {
+      'dimensions': 'ga:country',
+      'metrics': 'ga:sessions',
+      'start-date': '30daysAgo',
+      'end-date': 'yesterday',
+    },
+    chart: {
+      type: 'GEO',
+      container: 'GA-session-map-container',
+      options : {
+        colorAxis: {colors: ['#4fb0df', '#0e4f8b', '#0e4f8b', '#0e4f8b', '#0e4f8b']},
+        displayMode: "text, regions",
+        height: "500",
+        width: "750",
+        legend: {textStyle: {color: 'blue', fontSize: 16}}
+        //displayMode: "markers"
+      }
+    }
+  });
+  map.set({ query: { ids: "ga:93404402" } }).execute();
+  
+</script>

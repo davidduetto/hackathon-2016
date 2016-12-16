@@ -1,0 +1,27 @@
+<div class="Chartjs">
+  <div id="GA-session-country-table-container"></div>
+</div>
+<script defer>
+  var offsetWidth = parseInt($("#GA-session-country-table-container").outerWidth(), 10);
+
+  var sessionCountry = new gapi.analytics.googleCharts.DataChart({
+    reportType: 'ga',
+    query: {
+      'dimensions': 'ga:country',
+      'metrics': 'ga:sessions',
+      'sort' : '-ga:sessions',
+      'start-date': '30daysAgo',
+      'end-date': 'yesterday',
+    },
+    chart: {
+      type: 'TABLE',
+      container: 'GA-session-country-table-container',
+      options : {
+        height: 500,
+        width: offsetWidth
+      }
+    }
+  });
+  sessionCountry.set({ query: { ids: "ga:93404402" } }).execute();
+  
+</script>

@@ -1,9 +1,10 @@
 <div class="Chartjs">
-  <h3>#Users (Year over Year)</h3>
-  <figure class="Chartjs-figure" id="chart-user-year-over-year-container"></figure>
-  <ol class="Chartjs-legend" id="legend-user-year-over-year-container"></ol>
+  <h3>Frequency Distribution of Usage</h3>
+  <figure class="Chartjs-figure" id="chart-session-duration-container"></figure>
+  <ol class="Chartjs-legend" id="legend-session-duration-container"></ol>
 </div>
 <script defer>
+  
   /**
    * Extend the Embed APIs `gapi.analytics.report.Data` component to
    * return a promise the is fulfilled with the value returned by the API.
@@ -73,68 +74,68 @@
    * overlays session data for the current year over session data for the
    * previous year, grouped by month.
    */
-  function renderYearOverYearChart(ids) {
+  function renderSessionDurationChart(ids) {
 
     // Adjust `now` to experiment with different days, for testing only...
     var now = moment(); // .subtract(3, 'day');
 
     var thisYear = query({
       'ids': ids,
-      'dimensions': 'ga:month,ga:nthMonth',
-      'metrics': 'ga:users',
-      'start-date': moment(now).date(1).month(0).format('YYYY-MM-DD'),
+      'dimensions': 'ga:sessionDurationBucket',
+      'metrics': 'ga:sessions',
+      'start-date': moment(now).subtract(30, "day").format('YYYY-MM-DD'),
       'end-date': moment(now).format('YYYY-MM-DD')
     });
 
-    var lastYear = query({
-      'ids': ids,
-      'dimensions': 'ga:month,ga:nthMonth',
-      'metrics': 'ga:users',
-      'start-date': moment(now).subtract(1, 'year').date(1).month(0)
-          .format('YYYY-MM-DD'),
-      'end-date': moment(now).date(1).month(0).subtract(1, 'day')
-          .format('YYYY-MM-DD')
-    });
+    Promise.all([thisYear]).then(function(results) {
+      var durationBuckets = results[0].rows.map(function(row) { return +row[0]; });
+      var numSessions = results[0].rows.map(function(row) { return +row[1]; });
 
-    Promise.all([thisYear, lastYear]).then(function(results) {
-      var data1 = results[0].rows.map(function(row) { return +row[2]; });
-      var data2 = results[1].rows.map(function(row) { return +row[2]; });
-      var labels = ['Jan','Feb','Mar','Apr','May','Jun',
-                    'Jul','Aug','Sep','Oct','Nov','Dec'];
+      var data = [0, 0, 0, 0, 0];
+      results[0].rows.map(function(row) { 
+        var duration = parseInt(row[0], 10);
+        var num = parseInt(row[1], 10);
+        if (duration > 0 && duration <= 10) {
+          data[0] += num;
+        } else if (duration > 10 && duration <= 60) {
+          data[1] += num;
+        } else if (duration > 60 && duration <= 300) {
+          data[2] += num;
+        } else if (duration > 300 && duration <= 30 * 60) {
+          data[3] += num;
+        } else {
+          data[4] += num;
+        }
+        return null;
+      });
 
-      // Ensure the data arrays are at least as long as the labels array.
-      // Chart.js bar charts don't (yet) accept sparse datasets.
-      for (var i = 0, len = labels.length; i < len; i++) {
-        if (data1[i] === undefined) data1[i] = null;
-        if (data2[i] === undefined) data2[i] = null;
-      }
+      var labels = [
+        '1-10 seconds',
+        '11-60 seconds',
+        '1-5 minutes',
+        '5-30 minutes',
+        '30+ minutes'];
 
       var data = {
         labels : labels,
         datasets : [
           {
-            label: 'Last Year',
-            fillColor : 'rgba(220,220,220,0.5)',
-            strokeColor : 'rgba(220,220,220,1)',
-            data : data2
-          },
-          {
-            label: 'This Year',
+            label: 'sessions',
             fillColor : 'rgba(151,187,205,0.5)',
             strokeColor : 'rgba(151,187,205,1)',
-            data : data1
+            data : data
           }
         ]
       };
 
-      new Chart(makeCanvas('chart-user-year-over-year-container')).Bar(data);
-      generateLegend('legend-user-year-over-year-container', data.datasets);
+      new Chart(makeCanvas('chart-session-duration-container')).Bar(data);
+      generateLegend('legend-session-duration-container', data.datasets);
     })
     .catch(function(err) {
       alert(err.stack);
     });
   }
   
-  renderYearOverYearChart("ga:93404402");
+  renderSessionDurationChart("ga:93404402");
   
 </script>
