@@ -23,6 +23,7 @@
     <div class="charts dev-charts">
       <div id="Mongo-slow-commands-LINE"></div>
       <div id="Mongo-messages-by-severity-LINE"></div>
+      <div id="Mongo-slow-crud-LINE"></div>
     </div>
   </section>
 </div>
@@ -32,6 +33,7 @@
 gapi.analytics.ready(function() {
   $("#Mongo-slow-commands-LINE").load("Mongo-slow-commands-LINE.html");
   $("#Mongo-messages-by-severity-LINE").load("Mongo-message-by-severity-LINE.html");
+  $("#Mongo-slow-crud-LINE").load("Mongo-slow-crud-LINE.html");
 });
 
 </script>
